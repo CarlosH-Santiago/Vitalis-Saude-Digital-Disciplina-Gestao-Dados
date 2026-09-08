@@ -223,59 +223,56 @@ Como saídas, o sistema disponibiliza o prontuário eletrônico, informações d
 <!-- ======================================================== -->
 <!-- SEÇÃO DO INTEGRANTE 5                                    -->
 <!-- ======================================================== -->
+
 ## 2.2 Arquitetura de Armazenamento
 *Responsável: Joalisson Pinto Maia*
 
 ### 2.2.1 Onde os Dados são Armazenados
+Como a Vitalis trabalha com diferentes tipos de dados, cada informação será armazenada na tecnologia mais adequada para sua necessidade.
 
-Para atender à demanda da **Vitalis Saúde Digital**, adota-se o conceito de **Persistência Poliglota** (*Polyglot Persistence*), utilizando o banco de dados adequado para cada tipo de dado operacional, clínico ou transacional:
-
-* **Bancos de Dados Relacionais (PostgreSQL):**
-  * **Aplicação:** Armazenamento de dados altamente estruturados que exigem conformidade ACID (Atomicidade, Consistência, Isolamento e Durabilidade).
-  * **Conteúdo:** Prontuário Eletrônico do Paciente (PEP), históricos de consultas, prescrições médicas, cadastro de usuários (médicos e pacientes), agendamentos e transações financeiras.
-* **Bancos de Dados NoSQL / Orientados a Documentos (MongoDB / DynamoDB):**
-  * **Aplicação:** Armazenamento de dados semiestruturados de alta velocidade de escrita e leitura sem esquema fixo.
-  * **Conteúdo:** Logs de auditoria e acesso à plataforma (*audit logs* para rastreamento de quem acessou dados de saúde), sessões ativas de telemedicina e telemetria capturada de dispositivos *wearables*.
-* **Armazenamento de Objetos em Nuvem (AWS S3 / Azure Blob Storage):**
-  * **Aplicação:** Armazenamento de dados não estruturados de grande porte com alta durabilidade.
-  * **Conteúdo:** Exames laboratoriais, laudos radiológicos e diagnósticos por imagem (formatos PDF, DICOM, JPEG/PNG), além de gravações e transcrições de teleconsultas.
-* **Camada de Cache em Memória (Redis):**
-  * **Aplicação:** Armazenamento temporário em memória de baixíssima latência.
-  * **Conteúdo:** Sessões de login, agendas de médicos disponíveis no dia e tokens de autenticação temporários.
+- **PostgreSQL:** usado para dados estruturados, como prontuários, consultas, prescrições, usuários, agendamentos e transações.
+- **MongoDB / DynamoDB:** usado para logs, auditoria, sessões de telemedicina e dados gerados por dispositivos *wearables*.
+- **Cloudflare R2 / AWS S3:** usado para arquivos maiores e não estruturados, como exames, laudos, PDFs, imagens médicas e gravações de teleconsultas.
+- **Redis:** usado para informações temporárias que precisam de acesso rápido, como sessões, tokens e horários disponíveis.
+Dessa forma, evitamos concentrar todos os tipos de dados em apenas uma tecnologia.
 
 ---
 
-### 2.2.2 Infraestrutura de Nuvem Selecionada
+### 2.2.2 Infraestrutura de Nuvem
+A infraestrutura principal da Vitalis será baseada na **AWS**, utilizando a região de São Paulo (**sa-east-1**), com serviços complementares podendo utilizar outras plataformas, como o **Cloudflare R2** para armazenamento de arquivos.
 
-A infraestrutura é 100% baseada em nuvem, selecionando a **AWS (Amazon Web Services)** (com possibilidade de contingência na **Microsoft Azure**) para garantir **Alta Disponibilidade (HA)**, tolerância a falhas e total conformidade com a LGPD no que tange à soberania dos dados:
+O PostgreSQL será utilizado por meio do **Amazon RDS**, com configuração **Multi-AZ**, permitindo que outra instância assuma o serviço caso aconteça alguma falha.
 
-* **Região Geográfica de Alocação:** Datacenters localizados na **Região Brasil (São Paulo - sa-east-1)**, garantindo menor latência para as teleconsultas e conformidade legal na guarda de dados em território nacional.
-* **Arquitetura Multi-AZ (Múltiplas Zonas de Disponibilidade):** 
-  * Os bancos de dados relacionais (PostgreSQL gerenciado via AWS RDS) operam em configuração *Primary / Standby* replicados de forma síncrona em zonas fisicamente distintas. Em caso de queda de um datacenter, o *failover* é automático.
-* **Escalabilidade Automática (Auto Scaling) e Balanceamento de Carga (ALB):** 
-  * A camada de aplicação e os serviços de armazenamento se ajustam automaticamente de acordo com o tráfego de acesso e pico de consultas no sistema.
+Também poderão ser utilizados **Auto Scaling** e **Application Load Balancer (ALB)** para distribuir os acessos e ajustar os recursos conforme o número de usuários da plataforma.
 
 ---
 
-### 2.2.3 Política de Retenção, Rotinas de Backup e Ciclo de Vida dos Dados Médicos
+### 2.2.3 Backup, Retenção e Ciclo de Vida dos Dados
+Por trabalhar com dados médicos e informações pessoais, a Vitalis precisa garantir que esses dados estejam protegidos, disponíveis e possam ser recuperados em caso de falha.
+Para isso, serão considerados os requisitos da **LGPD** e da **Lei nº 13.787/2018**.
 
-A gestão do ciclo de vida dos dados na Vitalis obedece às normas vigentes da área da saúde, em especial à **Lei nº 13.787/2018** (Guarda e Manuseio de Prontuários Eletrônicos) e à **LGPD**:
+#### 2.2.4 Rotinas de Backup
+O PostgreSQL no RDS contará com mecanismos de backup e recuperação, como:
+- **Point-in-Time Recovery (PITR):** permite recuperar o banco para um momento anterior dentro do período configurado.
+- **Backups periódicos:** cópias dos dados para reduzir o risco de perda das informações.
 
-#### 2.2.4. Rotinas de Backup e Plano de Contingência
-* **Backups do Banco Relacional (PostgreSQL / RDS):**
-  * **Point-In-Time Recovery (PITR):** Snapshots contínuos das transações permitindo a restauração do banco de dados para qualquer segundo exato dos últimos 35 dias.
-  * **Backups Diários e Semanais:** Cópias diárias incrementais e semanais completas encriptadas em repositório secundário isolado.
-* **Métricas de Recuperação (SLA/DRP):**
-  * **RPO (Recovery Point Objective):** < 5 minutos (perda máxima aceitável de dados em caso de desastre).
-  * **RTO (Recovery Time Objective):** < 1 hora (tempo máximo para restabelecimento total dos serviços).
+Como objetivo de recuperação, a arquitetura considera:
+- **RPO:** inferior a 5 minutos.
+- **RTO:** inferior a 1 hora.
 
-#### 2.2.5. Política de Retenção Legal de Dados Médicos
-* **Prontuários e Dados Clínicos:** Guardados obrigatoriamente pelo prazo mínimo de **20 (vinte) anos** a partir do último registro do paciente, conforme determinação legal da Lei 13.787/2018.
-* **Logs de Acesso e Auditoria:** Mantidos por no mínimo **6 (seis) meses** para atender aos requisitos do Marco Civil da Internet e diretrizes da LGPD.
+---
 
-#### 2.2.6. Ciclo de Vida do Armazenamento (Storage Lifecycle Rules)
-Para otimizar custos e manter a conformidade legal, os arquivos e documentos médicos em formato não estruturado (S3 Buckets) transitam por três camadas automatizadas:
+#### 2.2.5 Retenção dos Dados
+Os prontuários e dados clínicos serão mantidos pelo prazo mínimo de **20 anos**, considerando a Lei nº 13.787/2018.
+Os logs de acesso e auditoria também serão mantidos pelo período necessário para garantir rastreabilidade e atender às exigências legais.
 
+---
+
+#### 2.2.6 Ciclo de Vida do Armazenamento
+Arquivos como exames, imagens e documentos médicos podem ocupar bastante espaço com o passar do tempo.
+Por isso, os arquivos armazenados no **Cloudflare R2** ou **Amazon S3** poderão utilizar políticas de ciclo de vida, permitindo organizar e gerenciar arquivos mais antigos de forma automática.
+
+Assim, a Vitalis consegue manter os dados pelo período necessário, buscando reduzir os custos de armazenamento sem comprometer a disponibilidade das informações.
 ---
 
 <!-- ======================================================== -->
