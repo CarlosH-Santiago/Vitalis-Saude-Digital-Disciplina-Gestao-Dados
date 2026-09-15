@@ -44,7 +44,7 @@
 
 
 ### 1.1.3 Missão, Visão e Valores
-* **Missão:** Democratizar o acesso à saúde de qualidade e humanizada por meio de soluções digitais integradas, conectando pacientes e profissionais de saúde com segurança, eficiência e máxima proteção de dados clínicos.
+* **Missão:** Tornar o acesso à saúde de qualidade e humanizada por meio de soluções digitais integradas, conectando pacientes e profissionais de saúde com segurança, eficiência e máxima proteção de dados clínicos.
   
 * **Visão:** Consolidar-se como o ecossistema digital de saúde mais confiável do país, unindo telemedicina de ponta e governança avançada de dados clínicos para transformar informações médicas em diagnósticos mais rápidos, precisos e seguros.
   
@@ -52,7 +52,7 @@
   * ***1 Vida e Saúde em Primeiro Lugar:*** A tecnologia é um meio para salvar vidas e melhorar o cuidado humano; nenhuma decisão técnica ou comercial se sobrepõe ao bem-estar do paciente.
   * ***2 Privacidade e Confidencialidade Inegociáveis:*** Rigor e transparência no tratamento de dados pessoais e clínicos sensíveis, mantendo conformidade contínua com a LGPD e padrões éticos médicos (CFM).
   * ***3 Inovação com Rigor Científico:*** Desenvolvimento de software baseado em evidências, segurança da informação e confiabilidade operacional crítica.
-  * ***4 Acessibilidade e Usabilidade:*** Criar experiências digitais intuitivas para que médicos e pacientes — independentemente do nível de letramento digital — tenham uma experiência fluida e sem atritos.]
+  * ***4 Acessibilidade e Usabilidade:*** Criar experiências digitais intuitivas para que médicos e pacientes tenham uma experiência fluida e sem atritos.]
   * ***5 Integridade e Ética nos Dados:*** Garantia de que diagnósticos, prescrições e laudos sejam imutáveis, rastreáveis e acessíveis apenas por quem tem autorização legítima.
 
 ---
