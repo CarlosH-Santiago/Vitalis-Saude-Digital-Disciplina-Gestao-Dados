@@ -277,12 +277,12 @@ Como os serviços da Vitalis Saúde Digital envolvem consultas e prontuários m�
 
 O inventário de dados da organização está estruturado conforme a classificação a seguir:
 
-| Categoria do Dado | Dados Coletados | Finalidade do Tratamento | Base Legal (LGPD) |
-| :--- | :--- | :--- | :--- |
-| **Dados de Saúde (Sensíveis)** | Histórico clínico, sintomas, diagnósticos, exames e prescrições médicas. | Prestação do serviço de telemedicina e gestão do Prontuário Eletrônico do Paciente (PEP). | Tutela da Saúde (Art. 11, II, "f") |
-| **Dados Biométricos** | Validação facial do paciente e assinatura digital do médico. | Autenticação de identidade, prevenção a fraudes e validação de documentos médicos. | Prevenção à Fraude (Art. 11, II, "g") |
-| **Dados Pessoais Gerais** | Nome, CPF, e-mail, telefone e registro profissional (CRM). | Cadastro, autenticação na plataforma, comunicação e emissão de notas fiscais. | Execução de Contrato (Art. 7º, V) |
-| **Dados Financeiros** | Informações de cartão de crédito e histórico de transações. | Processamento de pagamentos de consultas e assinaturas do modelo SaaS. | Execução de Contrato (Art. 7º, V) |
+| Categoria do Dado | Dados Coletados | Finalidade do Tratamento |
+| :--- | :--- | :--- |
+| **Dados de Saúde (Sensíveis)** | Histórico clínico, sintomas, diagnósticos, exames e prescrições médicas. | Prestação do serviço de telemedicina e gestão do Prontuário Eletrônico do Paciente (PEP). |
+| **Dados Biométricos** | Validação facial do paciente e assinatura digital do médico. | Autenticação de identidade, prevenção a fraudes e validação de documentos médicos. |
+| **Dados Pessoais Gerais** | Nome, CPF, e-mail, telefone e registro profissional (CRM). | Cadastro, autenticação na plataforma, comunicação e emissão de notas fiscais. |
+| **Dados Financeiros** | Informações de cartão de crédito e histórico de transações. | Processamento de pagamentos de consultas e assinaturas do modelo SaaS. |
 
 #### Prazos de Retenção e Guarda de Dados
 * **Prontuários Médicos:** Armazenamento obrigatório pelo período mínimo de **20 (vinte) anos**, em conformidade com a Lei nº 13.787/2018 e resoluções do Conselho Federal de Medicina (CFM).
