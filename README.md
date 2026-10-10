@@ -21,39 +21,30 @@
 <!-- ======================================================== -->
 <!-- SEÇÃO DO INTEGRANTE 1                                    -->
 <!-- ======================================================== -->
-## 1.1 Identidade Institucional
+### 1.1 Identidade Institucional
 *Responsável: Carlos Henrique De Souza Santana Santiago*
 
-### 1.1.1 Nome da Empresa e Marca
-
-* **Nome Fantasia:** Vitalis Saúde Digital.
-
+#### 1.1.1 Nome da Empresa e Marca
+* **Nome Fantasia:** Vitalis Saúde Digital
 * **Razão Social:** Vitalis Tecnologia em Saúde e Serviços S.A.
+* **Justificativa da Marca:** O nome Vitalis foi escolhido por sua associação direta com vida e saúde. A expressão "Saúde Digital" complementa a marca, deixando claro o foco da empresa no desenvolvimento de software para o setor médico.
 
-* **Justificativa da Marca:**  O nome Vitalis provém do latim vitalis, que significa "pertencente ou relativo à vida", "essencial" e "que sustenta a vida". A junção com Saúde Digital posiciona a organização diretamente no ecossistema de inovação tecnológica, refletindo a proposta de ser uma ponte ágil, segura e vital entre profissionais de saúde e pacientes.
-
-### 1.1.2 Segmento de Atuação
-
+#### 1.1.2 Segmento de Atuação
 * **Setor:** Tecnologia da Informação aplicada à Saúde (HealthTech).
-
-* **Nicho**: Plataformas integradas de telemedicina, gestão de prontuário eletrônico em nuvem (PEP - Prontuário Eletrônico do Paciente) e emissão de prescrições digitais com assinatura com certificação ICP-Brasil.
-  
+* **Nicho de Mercado:** Desenvolvimento e comercialização de sistema de telemedicina, Prontuário Eletrônico do Paciente (PEP) e emissão de prescrições médicas digitais validadas via certificado ICP-Brasil.
 * **Modelo de Negócio:**
-  * B2B (Business to Business): Fornecimento da infraestrutura de software como serviço (SaaS) para clínicas, hospitais de pequeno/médio porte e operadoras de saúde suplementar.
-  * B2C (Business to Consumer): Acesso direto de pacientes a consultas eletivas via aplicativo web e mobile.
+  * **B2B:** Venda da plataforma no modelo de assinatura (SaaS) para clínicas particulares, consultórios e hospitais de pequeno e médio porte.
+  * **B2C:** Atendimento direto a pacientes que agendam e realizam consultas remotas pelo aplicativo da plataforma.
 
-
-### 1.1.3 Missão, Visão e Valores
-* **Missão:** Democratizar o acesso à saúde de qualidade e humanizada por meio de soluções digitais integradas, conectando pacientes e profissionais de saúde com segurança, eficiência e máxima proteção de dados clínicos.
-  
-* **Visão:** Consolidar-se como o ecossistema digital de saúde mais confiável do país, unindo telemedicina de ponta e governança avançada de dados clínicos para transformar informações médicas em diagnósticos mais rápidos, precisos e seguros.
-  
+#### 1.1.3 Missão, Visão e Valores
+* **Missão:** Conectar pacientes e profissionais de saúde por meio de uma plataforma simples e segura de telemedicina e prontuário eletrônico, garantindo a organização e a privacidade dos dados clínicos.
+* **Visão:** Ser uma plataforma de telemedicina e prontuário eletrônico reconhecida por médicos e clínicas pela facilidade de uso, estabilidade do sistema e segurança no tratamento de dados de saúde.
 * **Valores:**
-  * ***1 Vida e Saúde em Primeiro Lugar:*** A tecnologia é um meio para salvar vidas e melhorar o cuidado humano; nenhuma decisão técnica ou comercial se sobrepõe ao bem-estar do paciente.
-  * ***2 Privacidade e Confidencialidade Inegociáveis:*** Rigor e transparência no tratamento de dados pessoais e clínicos sensíveis, mantendo conformidade contínua com a LGPD e padrões éticos médicos (CFM).
-  * ***3 Inovação com Rigor Científico:*** Desenvolvimento de software baseado em evidências, segurança da informação e confiabilidade operacional crítica.
-  * ***4 Acessibilidade e Usabilidade:*** Criar experiências digitais intuitivas para que médicos e pacientes — independentemente do nível de letramento digital — tenham uma experiência fluida e sem atritos.]
-  * ***5 Integridade e Ética nos Dados:*** Garantia de que diagnósticos, prescrições e laudos sejam imutáveis, rastreáveis e acessíveis apenas por quem tem autorização legítima.
+  * **Segurança e Cuidado com os Dados:** Tratar informações clínicas e cadastrais com sigilo e responsabilidade, seguindo as diretrizes da LGPD e as normas do CFM.
+  * **Simplicidade e Usabilidade:** Desenvolver telas e fluxos intuitivos para que médicos e pacientes utilizem a plataforma sem dificuldades.
+  * **Confiabilidade e Estabilidade:** Manter a plataforma disponível e operacional, evitando interrupções durante os atendimentos médicos.
+  * **Rastreabilidade e Integridade:** Garantir que prescrições, laudos e prontuários sejam autênticos, imutáveis e auditáveis.
+
 
 ---
 
