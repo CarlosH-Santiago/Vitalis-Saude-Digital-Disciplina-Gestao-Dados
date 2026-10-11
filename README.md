@@ -143,6 +143,54 @@ graph TD
 
 # PARTE 2: PROJETO DE SOFTWARE E GESTÃO DE DADOS
 
+
+
+## Parte: 1.B (Fluxo de Dados) e 1.C (Transacional vs. Analítico)
+
+Responsável: João Guilherme Pinheiro (CMO / Diretor Comercial)
+
+# 1. Fluxo de dados
+Na Vitalis, o fluxo de dados começa quando o paciente entra no aplicativo para marcar uma consulta. Esses dados passam pelo atendimento e depois são usados pela diretoria para acompanhar os resultados da empresa. A ideia é separar as atividades do dia a dia das análises. Assim, conseguimos gerar relatórios sem atrapalhar quem está usando o sistema durante uma consulta.
+
+O fluxo funciona assim:
+1. Agendamento no aplicativo
+O paciente acessa o aplicativo (B2C), escolhe um horário disponível e confirma a consulta. O backend registra esse agendamento no banco operacional, chamado OLTP. O sistema precisa garantir que dois pacientes não consigam reservar o mesmo horário.
+
+2. Atendimento médico
+O médico entra no painel (B2B), acessa o Prontuário Eletrônico do Paciente (PEP) e inicia a teleconsulta. Durante o atendimento, registra a anamnese e emite a prescrição com assinatura ICP-Brasil. Tudo isso é salvo no banco operacional. Como o médico depende dessas informações para trabalhar, o sistema precisa responder rápido.
+
+3. Extração e preparação dos dados
+Um processo de integração extrai os dados necessários para análise. Isso pode acontecer de madrugada ou em pequenos lotes durante o dia, dependendo da frequência de atualização que a empresa precisa.
+Nessa etapa, os dados são organizados e tratados. As informações sensíveis recebem cuidados específicos, como anonimização ou pseudonimização, conforme a finalidade da análise e os requisitos de proteção de dados.
+
+4. Armazenamento no Data Warehouse
+Depois do tratamento, os dados são enviados para o Data Warehouse da Vitalis. Nesse ambiente, os atendimentos podem ser organizados em uma tabela de fatos, como Fato_Atendimento, ligada a dimensões como Dim_Tempo, Dim_Medico e Dim_Clinica.
+Essa organização facilita análises por período, médico ou clínica.
+
+5. Painel da diretoria
+Uma ferramenta de BI acessa o Data Warehouse e apresenta os resultados em painéis. A diretoria consegue acompanhar, por exemplo, o volume de teleconsultas no mês, as especialidades mais procuradas e o tempo médio de atendimento.
+A atualização do painel depende da frequência de carga dos dados. Se a carga acontecer durante a madrugada, o painel vai mostrar as informações disponíveis até aquela atualização.
+
+# 2. OLTP e OLAP na Vitalis
+Na nossa proposta, cada ambiente tem uma função: o OLTP atende à operação, enquanto o OLAP permite analisar o histórico.
+Banco transacional (OLTP)
+É o banco usado pelo aplicativo e pelo painel do médico. Nele ficam os agendamentos, os registros do prontuário e as informações geradas durante o atendimento.
+O foco é executar operações rápidas, mesmo com várias pessoas usando a plataforma ao mesmo tempo. Cada operação costuma envolver poucos dados, como a confirmação de um horário ou a atualização do prontuário de um paciente.
+As propriedades ACID (Atomicidade, Consistência, Isolamento e Durabilidade) ajudam a manter as transações corretas. Uma gravação deve ser concluída por inteiro ou desfeita, evitando que uma falha deixe só parte da informação salva.
+Ambiente analítico (OLAP / Data Warehouse)
+Esse ambiente é usado para consultar grandes volumes de dados e acompanhar os resultados da Vitalis ao longo do tempo.
+Podemos comparar o número de consultas entre meses, calcular o tempo médio de atendimento por especialidade ou avaliar a demanda de cada clínica. São consultas que envolvem somas, médias, contagens e cruzamentos de informações.
+O Data Warehouse armazena os dados preparados para essas análises. Já o OLAP se refere ao processamento analítico.
+Com os ambientes separados, os relatórios da diretoria não disputam os mesmos recursos do banco usado no atendimento.
+
+# 3. O que acontece se a diretoria rodar um relatório pesado no banco usado pelo médico?
+O atendimento pode ficar mais lento.
+Imagine que a diretoria peça a média de duração das consultas de todas as clínicas nos últimos cinco anos, agrupada por mês e especialidade. Para entregar esse resultado, o banco pode precisar ler milhões de registros e fazer vários cálculos.
+Ao mesmo tempo, o médico está tentando salvar uma evolução no prontuário. É uma gravação pequena, mas ela pode demorar se o banco estiver sobrecarregado ou se houver bloqueios entre as consultas.
+Na prática, o médico fica esperando a tela responder. O acesso ao prontuário e a emissão da prescrição também podem atrasar, prejudicando o atendimento.
+A gravidade depende da capacidade do banco e de como o relatório foi construído. Ainda assim, é um risco que podemos evitar com a separação dos ambientes.
+Por isso, a proposta para a Vitalis é deixar os agendamentos e os registros clínicos no OLTP, enquanto os relatórios da diretoria ficam no ambiente analítico. Dessa forma, conseguimos acompanhar os resultados da empresa sem comprometer a rotina de atendimento.
+
 <!-- ======================================================== -->
 <!-- SEÇÃO DO INTEGRANTE 4                                    -->
 <!-- ======================================================== -->
